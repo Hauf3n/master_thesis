@@ -185,8 +185,6 @@ def train(args):
              
             # sample minibatches
             for i in range(8):
-                #print("do optim")
-            #for i, batch in enumerate(dataloader):
                 optimizer.zero_grad()
                 
                 # get data from loaders
@@ -221,8 +219,6 @@ def train(args):
                 # normalize adv values
                 adv = ( adv - torch.mean(adv) ) / ( torch.std(adv) + 1e-8)
                 
-                # get policy actions probs for prob ratio & value prediction
-                #policy, v = agent(obs)
                 # get the correct policy actions
                 pi = policy[range(minibatch_size),actions.long()]
                 
@@ -248,8 +244,6 @@ def train(args):
                 
                 ### SIL loss ###
                 
-                # get policy and value function
-                #policy_demo, values_demo = agent(obs_demo)
                 # get correct actions probs
                 pi_demo = policy_demo[range(minibatch_size),actions_demo.long()]
                 # alter values_demo shape

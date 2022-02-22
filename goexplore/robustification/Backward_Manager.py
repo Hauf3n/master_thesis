@@ -22,7 +22,7 @@ class Backward_Demo:
         self.restores = demo[1]
         self.frames = demo[2]
 
-        # save current position
+        # save current backward position
         self.current_pos = len(self.actions) - args.backward_steps - 10
         self.demo_len = len(self.actions)
         
@@ -46,7 +46,7 @@ class Backward_Demo:
         for i in range(len(self.actions)):
             self.perf_measure.append(np.sum(rewards[i::]))
         
-        # track performance for current demo position
+        # track performance records for current demo position
         self.records = [] 
      
     def get(self):
@@ -138,10 +138,11 @@ class Backward_Manager:
         return (idx, self.backward_demos[idx].get())
     
     def report_performance(self, idx, value, steps_to_reach_desired_return):
-        #print("report value: ", value)
+        # add a record for a demo
+        
         save_network_request = self.backward_demos[idx].add_performance(value) 
         
-        # we dont want to waste time, 
+        # we dont want to waste time, attempt to decrease T
         if steps_to_reach_desired_return > 0:
             self.backward_demos[idx].calculate_env_steps(steps_to_reach_desired_return)
         

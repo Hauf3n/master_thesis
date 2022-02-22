@@ -45,8 +45,7 @@ class Env_Runner_Demonstrations:
             values.append(value.detach())
             action_prob.append(policy[0,action].detach())
             
-            self.ob, r, done, info, additional_done = self.env.step(action)
-            #self.env.render()            
+            self.ob, r, done, info, additional_done = self.env.step(action)          
             if done: # environment reset, other add_dones are for learning purposes
                 self.ob = self.env.reset()
                 self.cur_demo = self.get_demonstration()
@@ -55,12 +54,12 @@ class Env_Runner_Demonstrations:
             rewards.append(r)
             dones.append(done or additional_done)
          
-        # compute return
+        # compute demonstration return
         R = []
         cur_R = 0
         for reward in reversed(rewards):
             cur_R = reward + self.gamma*cur_R
             R.append(cur_R)
         R.reverse() 
-        #print(values)
+        
         return [obs, actions, R, dones, values, action_prob]
