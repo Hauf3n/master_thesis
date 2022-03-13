@@ -22,14 +22,14 @@ def train():
     
     history_length = 3
     num_hidden = 50
-    replay_capacity = 100#100
+    replay_capacity = 150
     batch_size = 32
     k = 3
     n = 10
-    lr = 1e-3#2.5e-3
+    lr = 1e-3
     
     start_eps = 1
-    final_eps = 0.02
+    final_eps = 0.05
     final_episode = 750
     eps_interval = start_eps-final_eps
     
