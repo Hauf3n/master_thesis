@@ -96,7 +96,7 @@ class Env_Actor():
         return self.current_action
     
 class Env_Runner():
-    
+    # agent env loop
     def __init__(self, env_name):
         self.env_name = env_name
         self.env = gym.make(env_name).unwrapped

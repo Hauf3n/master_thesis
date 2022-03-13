@@ -20,6 +20,7 @@ dtype = torch.float
 
 def train():
     
+    # hyperparameter
     history_length = 3
     num_hidden = 50
     num_simulations = 20
@@ -31,6 +32,7 @@ def train():
     value_coef = 1
     reward_coef = 1
     
+    # init
     raw_env = gym.make('CartPole-v0')
     num_obs_space = raw_env.observation_space.shape[0]
     num_actions = raw_env.action_space.n
@@ -53,6 +55,7 @@ def train():
     
     optimizer = optim.Adam(agent.parameters(), lr=lr)
     
+    # train
     for episode in range(1000):#while True:
         
         # act and get data
@@ -66,7 +69,8 @@ def train():
              
         if len(replay) < 25:
             continue
-            
+        
+        # decrease temperature
         if episode < 500:
            agent.temperature = 1
         elif episode < 750:

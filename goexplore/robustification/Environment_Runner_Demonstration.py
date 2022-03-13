@@ -10,7 +10,7 @@ device = torch.device("cuda:0")
 dtype = torch.float         
          
 class Env_Runner_Demonstrations:
-    
+    # imitate a demo seq
     def __init__(self, env, agent, gamma):
         super().__init__()
         

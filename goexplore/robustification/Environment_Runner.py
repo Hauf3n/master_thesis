@@ -22,7 +22,7 @@ class Logger:
 
 cur_step = 0          
 class Env_Runner:
-    
+    # agent env loop
     def __init__(self, env, agent, logger_folder):
         super().__init__()
         
@@ -51,6 +51,7 @@ class Env_Runner:
         values = []
         action_prob = []
         
+        # track amount of timesteps to reach desired return
         steps_to_reach_desired_return = -1
         
         for step in range(steps):

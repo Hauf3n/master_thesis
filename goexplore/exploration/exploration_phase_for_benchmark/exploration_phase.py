@@ -75,7 +75,7 @@ class Env_Actor():
         return self.current_action
     
 class Env_Runner():
-    
+    # agent env loop
     def __init__(self, env_name):
         self.env_name = env_name
         self.env = gym.make(env_name).unwrapped
@@ -179,6 +179,7 @@ def main(run_number, max_steps, path, num_cpu):
             
             steps += len(traj)
             
+            # compute score and traj len for current pos
             cur_score = start_cell.score
             cur_traj_len = start_cell.traj_len
 

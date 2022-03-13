@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import numpy as np
 
 class W_MSE(nn.Module):
-    # DQN nature paper architecture
+    # paper architecture
     
     def __init__(self, in_channels, embedding_size):
         super().__init__()

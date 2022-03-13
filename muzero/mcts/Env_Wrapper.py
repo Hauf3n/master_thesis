@@ -43,7 +43,7 @@ class Env_Wrapper(gym.Wrapper):
  
         obs, reward, done, info = self.env.step(action)
         
-        # add obs and actions to history
+        # add obs to history
         self.add_history(obs)
         
         obs = self.compute_observation()

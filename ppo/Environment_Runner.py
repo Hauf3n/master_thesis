@@ -21,13 +21,14 @@ class Logger:
 
 cur_step = 0          
 class Env_Runner:
-    
+    # agent env loop
     def __init__(self, env, agent, logger_folder):
         super().__init__()
         
         self.env = env
         self.agent = agent
         
+        # log results
         self.logger = Logger(f'{logger_folder}/training_info')
         self.logger.log("training_step, return")
         

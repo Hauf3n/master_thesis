@@ -21,7 +21,8 @@ def naive_search(agent, state, num_actions, gamma, n=3):
     rewards = torch.tensor([0.0]).to(device)
     
     for depth in range(n):
-    
+        
+        # duplicate for node generation
         state = torch.repeat_interleave(state, num_actions, dim=0)
         actions = np.repeat([possible_actions], (num_actions ** depth), axis=0).flatten()
         

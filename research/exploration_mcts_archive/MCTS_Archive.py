@@ -32,6 +32,7 @@ class MCTS_Node():
         self.edges[node.key] = node
         self.sub_tree_size += 1
         
+        # inc subtree size
         cur_parent = self.parent
         while cur_parent != None:
             cur_parent.sub_tree_size += 1
@@ -59,7 +60,7 @@ class MCTS_Node():
         # delete child
         del self.edges[child_key]
         
-        # smaller sub tree size
+        # smaller subtree size
         cur_parent = self.parent
         while cur_parent != None:
             cur_parent.sub_tree_size -= 1
@@ -119,6 +120,7 @@ class MCTS_Archive():
         return start_node
     
     def probability_stop(self, node):
+        # stop at node
         
         start_mean_total = 0
         for child in node.edges:
@@ -130,6 +132,7 @@ class MCTS_Archive():
         return  np.minimum(weight * 1/(node.sub_tree_size + 1),1.0)
     
     def score(self, node):
+        # branching score
         return ((node.sub_tree_size + 1)/(node.trajectory_visits + 1))
              
     # current node is the start node but will change overtime in expand_tree 

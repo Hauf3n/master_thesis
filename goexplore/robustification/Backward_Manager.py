@@ -50,6 +50,7 @@ class Backward_Demo:
         self.records = [] 
      
     def get(self):
+    # get data for current position
         return (self.restores[self.current_pos], self.frames[self.current_pos], 
                 self.actions[self.current_pos::], self.T, self.perf_measure[self.current_pos])
      

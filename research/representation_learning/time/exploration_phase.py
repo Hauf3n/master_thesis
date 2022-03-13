@@ -95,6 +95,7 @@ class Env_Actor():
         return self.current_action
     
 class Env_Runner():
+    # agent env loop
     
     def __init__(self, env_name):
         self.env_name = env_name
@@ -212,7 +213,7 @@ def main(filename='experience.data'):
     time_window = 20
     batch_size = 64
     epochs = 15
-    select_from_time_window = 0.7
+    select_from_time_window = 0.65
     time_threshold = 0.8
     
     network = T_Network(3,32,512).to(device)
@@ -222,6 +223,7 @@ def main(filename='experience.data'):
     dataset = Dataset(frame_trajs, hash_trajs, time_window, select_from_time_window)
     dataloader = DataLoader(dataset, batch_size=batch_size, num_workers=12, shuffle=True, drop_last=True)
     
+    # inital optimization
     network.train()
     optimize_model(network, optimizer, dataloader, loss, 20)#epochs)  
     network.eval()  
@@ -298,7 +300,7 @@ def main(filename='experience.data'):
         for i, cell in enumerate(seen_cells):
             cell.embedding = frame_embeddings[i]
         
-        # add a new cell to the archive if there is progress in time        
+        # add a new checkpoint to the archive if there is progress in time        
         for frames, start_cell, restores, scores in zip(frame_trajs, start_cells, restore_trajs, score_trajs):
             
             start_cell.visits += 1
@@ -326,7 +328,7 @@ def main(filename='experience.data'):
             # extract the correct frame embedding
             frame_embedding = frame_embeddings[best_idx]
             
-            # compare time elapsed best_idx with all cells in archive
+            # compare time elapsed best_idx with all checkpoints in archive
             frame_embedding = frame_embedding.repeat(cell_embeddings.shape[0],1)
             times = network.time(cell_embeddings, frame_embedding).detach().cpu().numpy()#.squeeze(1)
             
@@ -357,6 +359,7 @@ def main(filename='experience.data'):
         logger.write(f'{steps},{best_score},{len(archive.cells)}\n')
         logger.close()
         
+        # save archive
         iteration += 1 
         if iteration%20 == 0:
             f = open(p+f'/cell_archive{iteration}.data', 'wb')
@@ -365,11 +368,11 @@ def main(filename='experience.data'):
             
 def add_new_cell(restore, frame, frame_embedding, score, embedding_holder, archive):
     global idx_counter
-    # put new cell in archive
+    # put new checkpoint in archive
                 
     new_cell = Cell(idx_counter, restore, frame, frame_embedding, score=score)          
     
-    # add new cell in archive and embedding holder
+    # add new checkpoint in archive and embedding holder
     embedding_holder.add_frame(torch.tensor(frame).to(device).to(dtype).unsqueeze(0).permute(0,3,1,2))
     # update all holder embeddings
     embedding_holder.compute_embeddings()

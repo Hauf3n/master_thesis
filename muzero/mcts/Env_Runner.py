@@ -21,13 +21,14 @@ class Logger:
         f.close()
         
 class Env_Runner:
-    
+    # agent env loop
     def __init__(self, env):
         super().__init__()
         
         self.env = env
         self.num_actions = self.env.action_space.n
         
+        # log results
         self.logger = Logger("episode_returns")
         self.logger.log("training_step, return")
         

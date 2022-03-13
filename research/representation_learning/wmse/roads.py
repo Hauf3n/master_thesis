@@ -14,7 +14,8 @@ class Roads_Node():
         
         
 class Roads():
-
+    # represents the red zones
+    
     def __init__(self, root_frame, network):
         self.nodes = [Roads_Node(0.0)]
         self.frames = [root_frame]
@@ -26,6 +27,8 @@ class Roads():
         self.embeddings = self.network.embedding(frames).detach()
         
     def update_nodes(self):
+        # recompute red zones
+    
         self.nodes = [Roads_Node(0.0)]
         d = torch.cdist(self.embeddings, self.embeddings, p=2.0)
         #print("d",d)
@@ -40,6 +43,7 @@ class Roads():
         
         
     def add_candidate(self, candidate_embedding, candidate_frame):
+        # new checkpoint
         
         accepted, neighbour_distance, neighbour_idx = self.check_candidate(candidate_embedding)
         
@@ -58,6 +62,7 @@ class Roads():
         return False
     
     def check_candidate(self, candidate_embedding):
+        # accept candidate? check distance to every red zone
         
         distance = torch.sum((self.embeddings - candidate_embedding)**2,dim=1)
         min_distance_idx = torch.argmin(distance)

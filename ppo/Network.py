@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 
 class PPO_Network(nn.Module):
-    # nature paper architecture
+    # nature dqn paper architecture
     
     def __init__(self, in_channels, num_actions):
         super().__init__()

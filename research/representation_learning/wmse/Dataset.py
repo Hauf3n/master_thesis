@@ -19,6 +19,7 @@ class Dataset(torch.utils.data.Dataset):
         self.imgs = {}
         self.md5s = []
         
+        # collect imgs, md5s
         for i in range(len(self.hash_trajs)):
             cur_traj = self.hash_trajs[i]
             for j in range(len(cur_traj)):
@@ -29,6 +30,7 @@ class Dataset(torch.utils.data.Dataset):
                 if md5 not in self.imgs.keys():
                     self.imgs[md5] = self.trajs[i][j]
         
+        # create positives
         for i in range(len(self.hash_trajs)):
             cur_traj = self.hash_trajs[i]
             

@@ -9,7 +9,7 @@ device = torch.device("cuda:0")
 dtype = torch.float
 
 class MinMaxStats():
-    
+    # tree normalization for q function
     def __init__(self):
         
         self.max = - np.inf
@@ -95,7 +95,7 @@ class MCTS():
         return self.get_pi(), self.root.search_value()
      
     def expand(self, parent, node, action):
-        
+        # expand the tree at current location
         next_state, p, v, reward = self.agent.rollout_step(parent.state, [action])
         next_state, p, v, reward = next_state.detach(), p.detach(), v.detach(), reward.detach()
         
@@ -108,7 +108,7 @@ class MCTS():
         return v
     
     def backup(self, value):
-   
+        # compute return sample and update q function and visits
         for node in reversed(self.node_trajectory):
         
             node.value_sum += value
@@ -119,7 +119,7 @@ class MCTS():
             value = node.reward + self.gamma * value         
             
     def upper_confidence_bound(self, node):
-        
+        # choose branching action
         ucb_scores = []
         
         for i in range(self.num_actions):
@@ -129,21 +129,21 @@ class MCTS():
         return action, node.edges[action] 
         
     def ucb_score(self, parent, child):
-        
+        # ucb score
         pb_c = math.log((parent.visits + self.c2 + 1) / self.c2) + self.c1
         pb_c *= math.sqrt(parent.visits) / (child.visits + 1)
         
         prior_score = pb_c * child.p
         
         value_score = 0
-        if child.visits > 0: # and parent.visits > 2:
+        if child.visits > 0:
             value_score = self.min_max_stats.normalize( child.reward + self.gamma * child.search_value())
             
         return prior_score + value_score
 
             
     def get_pi(self):
-        
+        # get root edge visits
         edge_visits = []
         for i in range(self.num_actions):
             edge_visits.append(self.root.edges[i].visits)
@@ -152,6 +152,7 @@ class MCTS():
         return edge_visits
     
     def add_exploration_noise(self, node):
+        # add prior noise for root
         noise = np.random.dirichlet([self.root_dirichlet_alpha] * self.num_actions)
         frac = self.root_exploration_fraction
         for a, n in zip(range(self.num_actions), noise):

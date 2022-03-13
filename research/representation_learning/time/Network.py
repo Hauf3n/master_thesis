@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 class T_Network(nn.Module):
-    # nature paper architecture
+    # network architecture
     
     def __init__(self, in_channels, embedding_size, ff_inner):
         super().__init__()

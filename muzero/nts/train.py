@@ -20,6 +20,7 @@ dtype = torch.float
 
 def train():
     
+    # hyperparameter
     history_length = 3
     num_hidden = 50
     replay_capacity = 150
@@ -33,6 +34,7 @@ def train():
     final_episode = 750
     eps_interval = start_eps-final_eps
     
+    # init
     raw_env = gym.make('CartPole-v0')
     num_obs_space = raw_env.observation_space.shape[0]
     num_actions = raw_env.action_space.n
