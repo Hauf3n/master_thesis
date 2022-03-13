@@ -1,4 +1,4 @@
-# Master Thesis - Erweiterung von fortschrittlichen Reinforcement Learning Algorihmen
+# Master Thesis - Erweiterung von fortschrittlichen Reinforcement Learning Algorithmen
 This repository contains the implementations and results of my master thesis. <br><br>
 # Content
 1. Images that are used in my work
