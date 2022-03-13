@@ -22,7 +22,6 @@ This repository contains the implementations and results of my master thesis. <b
 1. GoExplore Exploration Phase demos with 2500 score <br>
 ![1](https://github.com/Hauf3n/master_thesis/blob/main/goexplore/robustification/demos/2500_5_demos/demo0.gif)
 ![2](https://github.com/Hauf3n/master_thesis/blob/main/goexplore/robustification/demos/2500_5_demos/demo1.gif)
-![3](https://github.com/Hauf3n/master_thesis/blob/main/goexplore/robustification/demos/2500_5_demos/demo2.gif)
 ![4](https://github.com/Hauf3n/master_thesis/blob/main/goexplore/robustification/demos/2500_5_demos/demo3.gif)
 ![5](https://github.com/Hauf3n/master_thesis/blob/main/goexplore/robustification/demos/2500_5_demos/demo4.gif)<br><br>
 2. GoExplore Robustification Phase with 400-500-2500 score <br>
