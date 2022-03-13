@@ -16,7 +16,7 @@ This repository contains the implementations and results of my master thesis. <b
    - MCTS Archiv
    - Representation Learning for GoExplore Exploration Phase
      - TIME
-     - WMSE
+     - W-MSE
 
 # Videos
 1. GoExplore Exploration Phase demos with 2500 score <br>
